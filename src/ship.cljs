@@ -4,20 +4,24 @@
    [assets :as assets]))
 
 (defn update [ship dt]
-  (assoc! ship :rotation (inc (:rotation ship))))
+  (assoc! ship :rotation (+ 0.02 (:rotation ship)))
+  (assoc! ship :x (+ 0.21 (:x ship))))
 
-(defn draw [{:keys [x y rotation sprite]} ctx]
-  (let [width (:width sprite)])
-  (ctx.translate (+ (:width (:ship assets/images))) (:width (:ship assets/images)))
-  (ctx.rotate rotation)
-  (ctx.drawImage sprite x y 200 200))
+(defn draw-image [{:keys [x y rotation sprite scale]} ctx]
+  (ctx.setTransform scale 0 0 scale x y)
+  (when rotation
+    (ctx.rotate rotation))
+  (ctx.drawImage sprite (/ (- sprite.width) 2) (/ (- sprite.height) 2)))
 
-(defn create-ship []
-  {:x 50
-   :y 50
-   :rotation 70
+(defn draw [ship ctx]
+  (draw-image ship ctx))
+
+(defn create-ship [{:keys [x y rotation]}]
+  {:x x
+   :y y
+   :rotation (or rotation 0)
    :sprite (:ship assets/images)
+   :scale 3
    :update update
    :draw draw})
-
 
