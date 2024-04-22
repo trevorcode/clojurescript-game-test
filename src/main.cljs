@@ -44,7 +44,6 @@
 (defn game-update [{:keys [current-scene dt]}]
   (scene/scene-update current-scene dt))
 
-
 (defn main-loop [time]
   (assoc! game-state :dt (/ (- time (:last-update game-state)) 1000))
   (assoc! game-state :last-update time)
@@ -55,7 +54,6 @@
   (.restore (:context game-state))
 
   (js/window.requestAnimationFrame main-loop))
-
 
 (defn init-game []
   (let [canvas (create-canvas! "2" 500 500)
@@ -70,8 +68,6 @@
   (println assets/images)
   (assoc! game-state :current-scene (scene/scene1))
   (println game-state)
-  
-  
 
   (js/window.requestAnimationFrame main-loop))
 

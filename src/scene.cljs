@@ -1,7 +1,6 @@
 (ns scene
   (:require [ship :as ship]
-    [assets :as assets]))
-
+            [assets :as assets]))
 
 (defn scene-draw [scene context]
   (doseq [game-obj (:objects scene)]
@@ -13,4 +12,4 @@
 
 (defn scene1 [sprite]
   {:objects [(ship/create-ship {:x 50 :y 50 :rotation 10 :sprite (:ship assets/images)})
-             (ship/create-ship {:x 30 :y 80 :rotation 90 :sprite (:ship assets/images) })]})
+             (ship/create-ship {:x 30 :y 80 :rotation 90 :sprite (:ship assets/images)})]})
