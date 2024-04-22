@@ -68,7 +68,7 @@
   (load)
 
   (println assets/images)
-  (assoc! game-state :current-scene scene/scene1)
+  (assoc! game-state :current-scene (scene/scene1))
   (println game-state)
   
   

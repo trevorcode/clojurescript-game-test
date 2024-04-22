@@ -16,11 +16,11 @@
 (defn draw [ship ctx]
   (draw-image ship ctx))
 
-(defn create-ship [{:keys [x y rotation]}]
+(defn create-ship [{:keys [x y rotation sprite]}]
   {:x x
    :y y
    :rotation (or rotation 0)
-   :sprite (:ship assets/images)
+   :sprite sprite
    :scale 3
    :update update
    :draw draw})
