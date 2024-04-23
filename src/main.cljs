@@ -2,20 +2,10 @@
   (:require
    [squint.core :refer [defclass js-await]]
    [assets :as assets]
-   [ship :as ship]
+   [gamestate :as gs]
    [scene :as scene]))
 
-(def game-state
-  {:dt 0
-   :last-update 0
-   :mouse {:x 0
-           :y 0
-           :btn [false false false]}
-   :keyboard []
-   :canvas nil
-   :context nil
-   :loading true
-   :current-scene {:objects []}})
+
 
 (defn create-canvas! [id w h]
   (let [id-string (str "#canvas_" id)
@@ -44,7 +34,7 @@
 (defn game-update [{:keys [current-scene dt]}]
   (scene/scene-update current-scene dt))
 
-(defn main-loop [time]
+(defn main-loop [game-state time]
   (assoc! game-state :dt (/ (- time (:last-update game-state)) 1000))
   (assoc! game-state :last-update time)
 
@@ -53,20 +43,24 @@
   (draw game-state)
   (.restore (:context game-state))
 
-  (js/window.requestAnimationFrame main-loop))
+  (js/window.requestAnimationFrame (partial main-loop game-state)))
 
 (defn init-game []
   (let [canvas (create-canvas! "2" 500 500)
         context (create-context! canvas)]
-    (assoc! game-state :canvas canvas)
-    (assoc! game-state :context context)
+    
+    (gs/subscribe-to-keyboard-events gs/game-state)
+    
+    (println gs/game-state)
+    (assoc! gs/game-state :canvas canvas)
+    (assoc! gs/game-state :context context)
     (-> (js/document.querySelector "#app")
         (.append canvas)))
 
   (load)
 
-  (assoc! game-state :current-scene (scene/scene1))
+  (assoc! gs/game-state :current-scene (scene/scene1))
 
-  (js/window.requestAnimationFrame main-loop))
+  (js/window.requestAnimationFrame (partial main-loop gs/game-state)))
 
 (init-game)

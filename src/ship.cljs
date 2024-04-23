@@ -11,7 +11,8 @@
   (ctx.setTransform scale 0 0 scale x y)
   (when rotation
     (ctx.rotate rotation))
-  (ctx.drawImage sprite (/ (- sprite.width) 2) (/ (- sprite.height) 2)))
+  (ctx.drawImage sprite (/ (- sprite.width) 2) (/ (- sprite.height) 2))
+  (ctx.setTransform 1 0 0 1 0 0))
 
 (defn draw [ship ctx]
   (draw-image ship ctx))

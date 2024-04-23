@@ -1,10 +1,14 @@
 (ns scene
   (:require [ship :as ship]
-            [assets :as assets]))
+            [assets :as assets]
+            [gamestate :as gs]))
 
 (defn scene-draw [scene context]
   (doseq [game-obj (:objects scene)]
-    (game-obj.draw game-obj context)))
+    (game-obj.draw game-obj context))
+  
+  (when (gs/key-down? gs/game-state 68)
+    (context.strokeText "Hello world!" 50 50)))
 
 (defn scene-update [scene dt]
   (doseq [game-obj (:objects scene)]
