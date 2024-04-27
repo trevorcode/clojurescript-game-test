@@ -52,8 +52,7 @@
     (ctx.setTransform 1 0 0 1 0 0)))
 
 (defn draw [ship ctx]
-  (draw-image ship ctx)
-  (println ship.sprite.frame))
+  (draw-image ship ctx))
 
 (defn create [{:keys [x y rotation sprite]}]
   {:x x

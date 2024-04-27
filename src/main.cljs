@@ -32,6 +32,7 @@
   (scene/scene-draw current-scene context))
 
 (defn game-update [{:keys [current-scene dt]}]
+
   (scene/scene-update current-scene dt))
 
 (defn main-loop [game-state time]

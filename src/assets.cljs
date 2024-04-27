@@ -8,7 +8,7 @@
                             :height 18
                             :width 16
                             :count 5
-                            :duration 10
+                            :duration 30
                             :durationCounter 0
                             :frame 0
                             :rows 4
