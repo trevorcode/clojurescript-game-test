@@ -35,8 +35,8 @@
   (scene/scene-update current-scene dt))
 
 (defn main-loop [game-state time]
-  (assoc! game-state :dt (/ (- time (:last-update game-state)) 1000))
-  (assoc! game-state :last-update time)
+  (set! game-state.dt (/ (- time (:last-update game-state)) 1000))
+  (set! game-state.last-update time)
 
   (.save (:context game-state))
   (game-update game-state)
@@ -52,8 +52,8 @@
     (gs/subscribe-to-keyboard-events gs/game-state)
     
     (println gs/game-state)
-    (assoc! gs/game-state :canvas canvas)
-    (assoc! gs/game-state :context context)
+    (set! gs/game-state.canvas canvas)
+    (set! gs/game-state.context context)
     (-> (js/document.querySelector "#app")
         (.append canvas)))
 
