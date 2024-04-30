@@ -3,10 +3,10 @@
 
 (defn increment-frame [{:keys [rows columns frame loop] :as animation}]
   (set! animation.frame (if (< (inc frame) (* rows columns))
+                          (inc frame)
                           (if loop
-                            (inc frame)
-                            frame)
-                          0)))
+                            0
+                            frame))))
 
 (defn get-frame-x-y [frame columns]
   [(int (/ frame columns)) (mod frame columns)])

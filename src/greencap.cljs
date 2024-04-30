@@ -13,7 +13,7 @@
    :frame 0
    :rows 4
    :columns 3
-   :loop true})
+   :loop false})
 
 (defn greencap-idle []
   {:sheet :greencap
