@@ -1,8 +1,10 @@
 (ns scene
-  (:require [ship :as ship]
+  (:require [background :as background]
+            [engine.animation :as animation]
+            [gamestate :as gs]
             [greencap :as greencap]
-            [assets :as assets]
-            [gamestate :as gs]))
+            [runguy :as runguy]
+            [ship :as ship]))
 
 (defn scene-draw [scene context]
   (doseq [game-obj (:objects scene)]
@@ -12,7 +14,7 @@
     (doseq [greencap (->> (get-in gs/game-state [:current-scene :objects])
                           (filterv #(= (:type %) :greencap))
                           (take 25))]
-      (assoc! (-> greencap :animation-component) :current-animation :run))
+      (animation/play-animation greencap :run))
     (context.strokeText "Hello world!" 50 50)))
 
 (defn scene-update [scene dt]
@@ -21,10 +23,14 @@
 
 (defn scene1 []
   {:objects
-   (into [(ship/create-ship {:x 50 :y 50 :rotation 10 :sprite (:ship assets/images)})
-          (ship/create-ship {:x 30 :y 80 :rotation 90 :sprite (:ship assets/images)})]
-         (take 50 (repeatedly
-                  #(greencap/create
-                    {:x (* (js/Math.random) 350)
-                     :y (* (js/Math.random) 350)
-                     :rotation (* (js/Math.random) 350)}))))})
+   (into [
+          (background/create {:x 250 :y 250})
+          
+          (ship/create-ship {:x 50 :y 50 :rotation 10})
+          (ship/create-ship {:x 30 :y 80 :rotation 90})
+          (runguy/create {:x 180 :y 180})]
+         (take 2 (repeatedly
+                   #(greencap/create
+                     {:x (* (js/Math.random) 350)
+                      :y (* (js/Math.random) 350)
+                      :rotation (* (js/Math.random) 350)}))))})

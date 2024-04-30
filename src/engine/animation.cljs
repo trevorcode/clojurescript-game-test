@@ -1,4 +1,4 @@
-(ns animation
+(ns engine.animation
   (:require [assets :refer [images]]))
 
 (defn increment-frame [{:keys [rows columns frame loop] :as animation}]
@@ -34,9 +34,14 @@
                    width
                    height)))
 
+(defn play-animation [entity animation]
+  (assoc! (get-in entity [:animation-component :animations animation])
+          :frame 0)
+  (assoc! (-> entity :animation-component) :current-animation animation))
+
 (defn draw-animation
-  [{:keys [x y rotation scale] :as this}
-   {:keys [frame columns sheet] :as animation}
+  [{:keys [x y rotation scale]}
+   {:keys [sheet] :as animation}
    ctx]
   (let [image (get-in images [sheet :image])]
     (ctx.setTransform scale 0 0 scale x y)
@@ -45,3 +50,10 @@
     (draw-frame ctx image animation)
     (ctx.setTransform 1 0 0 1 0 0)
     (step-animation animation)))
+
+(defn draw-image [ctx image {:keys [x y rotation scale]}]
+  (ctx.setTransform scale 0 0 scale x y)
+  (when rotation
+    (ctx.rotate rotation))
+  (ctx.drawImage image (/ (- image.width) 2) (/ (- image.height) 2))
+  (ctx.setTransform 1 0 0 1 0 0))

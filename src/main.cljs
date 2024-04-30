@@ -5,8 +5,6 @@
    [gamestate :as gs]
    [scene :as scene]))
 
-
-
 (defn create-canvas! [id w h]
   (let [id-string (str "#canvas_" id)
         try-canv (js/document.querySelector id-string)

@@ -2,7 +2,7 @@
   (:require
    [squint.core :refer [defclass js-await]]
    [assets :as assets]
-   [animation :as animation]))
+   [engine.animation :as animation]))
 
 (defn greencap-animation []
   {:sheet :greencap
