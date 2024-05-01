@@ -11,31 +11,30 @@
         canv (if try-canv
                try-canv
                (js/document.createElement "canvas"))]
-    (assoc! canv :width w)
-    (assoc! canv :height h)
-    (assoc! canv :id id-string)
+    (set! (.-width canv) w)
+    (set! (.-height canv) h)
+    (set! (.-id canv) id-string)
     canv))
 
 (defn create-context! [canvas]
   (let [context (canvas.getContext "2d")]
-    (assoc! context :imageSmoothingEnabled false)
+    (set! (.-imageSmoothingEnabled context) false)
     context))
 
 (defn load []
   (assets/load-images))
 
-(defn draw [{:keys [canvas context current-scene]}]
-  (assoc! context :fillStyle "#f0f0e2")
+(defn draw [{:keys [canvas context currentScene]}]
+  (set! (.-fillStyle context) "#f0f0e2")
   (context.fillRect 0 0 canvas.width canvas.height)
-  (scene/scene-draw current-scene context))
+  (scene/scene-draw currentScene context))
 
-(defn game-update [{:keys [current-scene dt]}]
-
-  (scene/scene-update current-scene dt))
+(defn game-update [{:keys [currentScene dt]}]
+  (scene/scene-update currentScene dt))
 
 (defn main-loop [game-state time]
-  (set! game-state.dt (/ (- time (:last-update game-state)) 1000))
-  (set! game-state.last-update time)
+  (set! game-state.dt (/ (- time (:lastUpdate game-state)) 1000))
+  (set! game-state.lastUpdate time)
 
   (.save (:context game-state))
   (game-update game-state)
@@ -56,8 +55,9 @@
         (.append canvas)))
 
   (load)
+  (println gs/game-state)
 
-  (assoc! gs/game-state :current-scene (scene/scene1))
+  (set! (.-currentScene gs/game-state) (scene/scene1))
 
   (js/window.requestAnimationFrame (partial main-loop gs/game-state)))
 

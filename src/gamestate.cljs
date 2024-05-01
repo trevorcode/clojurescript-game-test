@@ -2,7 +2,7 @@
 
 (def game-state
   {:dt 0
-   :last-update 0
+   :lastUpdate 0
    :mouse {:x 0
            :y 0
            :btn [false false false]}
@@ -10,7 +10,7 @@
    :canvas nil
    :context nil
    :loading true
-   :current-scene {:objects []}})
+   :currentScene {:objects []}})
 
 (defn key-down? [game-state keycode]
   (get-in game-state [:keyboard keycode]))
