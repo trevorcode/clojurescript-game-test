@@ -61,4 +61,4 @@
 
   (js/window.requestAnimationFrame (partial main-loop gs/game-state)))
 
-(init-game)
+(init-game) 

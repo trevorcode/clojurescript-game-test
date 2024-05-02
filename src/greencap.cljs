@@ -36,8 +36,6 @@
         animation (get-in this [:animation-component :animations current-animation])]
     (animation/draw-animation this animation ctx)))
 
-(deftype GreenCap [x y rotation animation-component scale])
-
 
 (defn create [{:keys [x y rotation]}]
   {:type :greencap

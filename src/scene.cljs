@@ -11,9 +11,9 @@
     (game-obj.draw game-obj context))
 
   (when (gs/key-down? gs/game-state 68)
-    (doseq [greencap (->> (get-in gs/game-state [:current-scene :objects])
+    (doseq [greencap (->> (get-in gs/game-state [:currentScene :objects])
                           (filterv #(= (:type %) :greencap))
-                          (take 25))]
+                          #_(take 2))]
       (animation/play-animation greencap :run))
     (context.strokeText "Hello world!" 50 50)))
 
