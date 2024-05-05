@@ -10,7 +10,6 @@
         animation (get-in this [:animation-component :animations current-animation])]
     (animation/draw-animation this animation ctx)))
 
-
 (defn runguy-anim []
   {:sheet :runguy
    :height 500
@@ -21,10 +20,6 @@
    :rows 2
    :columns 5
    :loop true})
-
-(defn update [this dt]
-  #_(assoc! ship :rotation (+ 0.02 (:rotation ship)))
-  #_(assoc! ship :x (+ 0.21 (:x ship))))
 
 (defn create [{:keys [x y rotation]}]
   {:type :runguy

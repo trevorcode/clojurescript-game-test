@@ -4,8 +4,6 @@
             [engine.animation :refer [draw-image]]
             [gamestate :refer [render-entity]]))
 
-(defn update [this dt])
-
 (def-method render-entity :bg [this ctx]
   (draw-image ctx (get-in assets/images [:bg :image]) this))
 
@@ -14,5 +12,4 @@
    :x x
    :y y
    :rotation (or rotation 0)
-   :scale 0.5 })
-
+   :scale 0.5})

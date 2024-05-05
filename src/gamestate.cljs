@@ -38,4 +38,4 @@
 (def-multi render-entity (fn [x] (:type x)))
 (def-method render-entity :default [])
 (def-multi update-entity (fn [x] (:type x)))
-(def-method update-entity :default [] [])
+(def-method update-entity :default [])

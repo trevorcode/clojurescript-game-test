@@ -1,6 +1,5 @@
 (ns main
   (:require
-   [squint.core :refer [defclass js-await]]
    [assets :as assets]
    [gamestate :as gs]
    [scene :as scene]))

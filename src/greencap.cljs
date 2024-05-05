@@ -5,6 +5,8 @@
    [engine.animation :as animation]
    [gamestate :refer [render-entity]]))
 
+;;https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
+
 (defn greencap-animation []
   {:sheet :greencap
    :height 18
@@ -27,16 +29,10 @@
    :columns 3
    :loop true})
 
-;;https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
-(defn update [ship dt]
-  #_(assoc! ship :rotation (+ 0.02 (:rotation ship)))
-  #_(assoc! ship :x (+ 0.21 (:x ship))))
-
 (def-method render-entity :greencap [this ctx]
   (let [current-animation (get-in this [:animation-component :current-animation])
         animation (get-in this [:animation-component :animations current-animation])]
     (animation/draw-animation this animation ctx)))
-
 
 (defn create [{:keys [x y rotation]}]
   {:type :greencap
