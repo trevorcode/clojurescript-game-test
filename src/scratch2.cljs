@@ -1,6 +1,6 @@
 (ns scratch
   (:require-macros [macros :refer [def-multi def-method]])
-  (:require [macroutil :as macroutil]
+  (:require [macros :refer [multimethodfn]]
             [scratch :refer [testing]]))
 
 (def-method testing :papas [x] (println x))

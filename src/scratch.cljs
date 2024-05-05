@@ -1,6 +1,6 @@
 (ns scratch
   (:require-macros [macros :refer [def-multi def-method]])
-  (:require [macroutil :as macroutil]))
+  (:require [macros :as macros]))
 
 (def-multi testing (fn [x] (:type x)))
 (testing :attach-method)
