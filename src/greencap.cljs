@@ -1,8 +1,9 @@
 (ns greencap
+  (:require-macros [macros :refer [def-method]])
   (:require
-   [squint.core :refer [defclass js-await]]
    [assets :as assets]
-   [engine.animation :as animation]))
+   [engine.animation :as animation]
+   [gamestate :refer [render-entity]]))
 
 (defn greencap-animation []
   {:sheet :greencap
@@ -31,7 +32,7 @@
   #_(assoc! ship :rotation (+ 0.02 (:rotation ship)))
   #_(assoc! ship :x (+ 0.21 (:x ship))))
 
-(defn draw [this ctx]
+(def-method render-entity :greencap [this ctx]
   (let [current-animation (get-in this [:animation-component :current-animation])
         animation (get-in this [:animation-component :animations current-animation])]
     (animation/draw-animation this animation ctx)))
@@ -45,7 +46,5 @@
    :animation-component {:animations {:run (greencap-animation)
                                       :idle (greencap-idle)}
                          :current-animation :idle}
-   :scale 3
-   :update update
-   :draw draw})
+   :scale 3})
 

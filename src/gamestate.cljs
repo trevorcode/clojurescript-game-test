@@ -1,4 +1,7 @@
-(ns gamestate)
+(ns gamestate
+
+  (:require-macros [macros :refer [def-multi def-method]])
+  (:require [macros :as macros]))
 
 (def game-state
   {:dt 0
@@ -31,3 +34,8 @@
 (defn subscribe-to-keyboard-events [game-state]
   (subscribe-to-keyboard-down-events game-state)
   (subscribe-to-keyboard-up-events game-state))
+
+(def-multi render-entity (fn [x] (:type x)))
+(def-method render-entity :default [])
+(def-multi update-entity (fn [x] (:type x)))
+(def-method update-entity :default [] [])
