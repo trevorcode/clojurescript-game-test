@@ -2,7 +2,19 @@
   (:require-macros [macros :refer [def-method]])
   (:require
    [engine.animation :as animation]
+   [engine.input :as input]
    [gamestate :refer [render-entity update-entity]]))
+
+(def-method update-entity :runguy
+  [this _dt]
+  (when (input/key-down? (:A input/keys))
+    (set! (.-x this) (dec (.-x this))))
+  (when (input/key-down? (:D input/keys))
+    (set! (.-x this) (inc (.-x this))))
+  (when (input/key-down? (:W input/keys))
+    (set! (.-y this) (dec (.-y this))))
+  (when (input/key-down? (:S input/keys))
+    (set! (.-y this) (inc (.-y this)))))
 
 (def-method render-entity :runguy
   [this ctx]
@@ -19,6 +31,7 @@
    :frame 0
    :rows 2
    :columns 5
+   :cells [0 2 1 2 3 2 1 ]
    :loop true})
 
 (defn create [{:keys [x y rotation]}]
@@ -28,6 +41,6 @@
    :rotation (or rotation 0)
    :animation-component {:animations {:run (runguy-anim)}
                          :current-animation :run}
-   :scale 0.5 })
+   :scale 0.5})
 
 

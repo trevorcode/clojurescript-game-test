@@ -2,7 +2,8 @@
   (:require
    [assets :as assets]
    [gamestate :as gs]
-   [scene :as scene]))
+   [scene :as scene]
+   [engine.input :as input]))
 
 (defn create-canvas! [id w h]
   (let [id-string (str "#canvas_" id)
@@ -46,7 +47,7 @@
   (let [canvas (create-canvas! "2" 500 500)
         context (create-context! canvas)]
     
-    (gs/subscribe-to-keyboard-events gs/game-state)
+    (input/subscribe-to-keyboard-events gs/game-state)
     
     (set! gs/game-state.canvas canvas)
     (set! gs/game-state.context context)

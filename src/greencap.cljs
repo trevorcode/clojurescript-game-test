@@ -16,6 +16,7 @@
    :frame 0
    :rows 4
    :columns 3
+   :cells [0 1 2 3 4 5 6 7 8 9 10 11]
    :loop false})
 
 (defn greencap-idle []
@@ -25,8 +26,9 @@
    :duration 40
    :durationCounter 0
    :frame 0
-   :rows 1
+   :rows 4
    :columns 3
+   :cells [0 1 2]
    :loop true})
 
 (def-method render-entity :greencap [this ctx]

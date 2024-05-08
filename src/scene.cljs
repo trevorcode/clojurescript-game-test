@@ -2,6 +2,7 @@
   (:require [background :as background]
             [engine.animation :as animation]
             [gamestate :as gs]
+            [engine.input :as input]
             [greencap :as greencap]
             [runguy :as runguy]
             [ship :as ship]))
@@ -10,7 +11,7 @@
   (doseq [game-obj (:objects scene)]
     (gs/render-entity game-obj context))
 
-  (when (gs/key-down? gs/game-state 68)
+  (when (input/key-down? 68)
     (doseq [greencap (->> (get-in gs/game-state [:currentScene :objects])
                           (filterv #(= (:type %) :greencap))
                           #_(take 2))]

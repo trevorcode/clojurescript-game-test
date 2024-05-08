@@ -1,12 +1,15 @@
 (ns engine.animation
   (:require [assets :refer [images]]))
 
-(defn increment-frame [{:keys [rows columns frame loop] :as animation}]
-  (set! animation.frame (if (< (inc frame) (* rows columns))
+(defn increment-frame [{:keys [rows columns frame loop cells] :as animation}]
+  (set! animation.frame (if (< (inc frame) (count cells))
                           (inc frame)
                           (if loop
                             0
                             frame))))
+
+(defn get-cell-x-y [cell columns]
+  [(int (/ cell columns)) (mod cell columns)])
 
 (defn get-frame-x-y [frame columns]
   [(int (/ frame columns)) (mod frame columns)])
@@ -22,8 +25,8 @@
 
 (defn draw-frame [ctx
                   image
-                  {:keys [width height frame columns]}]
-  (let [[frame-x frame-y] (get-frame-x-y frame columns)]
+                  {:keys [width height frame columns cells]}]
+  (let [[frame-x frame-y] (get-cell-x-y (nth cells frame) columns)]
     (ctx.drawImage image
                    (* frame-y width)
                    (* frame-x height)
