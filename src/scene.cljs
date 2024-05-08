@@ -12,10 +12,6 @@
     (gs/render-entity game-obj context))
 
   (when (input/key-down? 68)
-    (doseq [greencap (->> (get-in gs/game-state [:currentScene :objects])
-                          (filterv #(= (:type %) :greencap))
-                          #_(take 2))]
-      (animation/play-animation greencap :run))
     (context.strokeText "Hello world!" 50 50)))
 
 (defn scene-update [scene dt]
