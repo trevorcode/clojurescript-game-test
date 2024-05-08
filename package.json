@@ -13,6 +13,6 @@
     "vite": "^4.4.11"
   },
   "dependencies": {
-    "squint-cljs": "^0.7.104"
+    "squint-cljs": "^0.7.107"
   }
 }

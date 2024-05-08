@@ -39,3 +39,6 @@
 (def-method render-entity :default [])
 (def-multi update-entity (fn [x] (:type x)))
 (def-method update-entity :default [])
+
+(defprotocol IDrawable
+  (draw [this ctx]))

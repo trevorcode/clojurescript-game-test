@@ -1,9 +1,7 @@
 (ns greencap
-  (:require-macros [macros :refer [def-method]])
-  (:require
-   [assets :as assets]
-   [engine.animation :as animation]
-   [gamestate :refer [render-entity]]))
+  #_(:require-macros [macros :refer [def-method]])
+  (:require [engine.animation :as animation]
+            [gamestate :refer [render-entity] :as gs]))
 
 ;;https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
 
@@ -29,18 +27,31 @@
    :columns 3
    :loop true})
 
-(def-method render-entity :greencap [this ctx]
-  (let [current-animation (get-in this [:animation-component :current-animation])
-        animation (get-in this [:animation-component :animations current-animation])]
-    (animation/draw-animation this animation ctx)))
+#_(def-method render-entity :greencap [this ctx]
+    (let [current-animation (get-in this [:animation-component :current-animation])
+          animation (get-in this [:animation-component :animations current-animation])]
+      (animation/draw-animation this animation ctx)))
+
+(deftype Potato [])
+
+(deftype GreenCap [this]
+  gs/IDrawable
+  (draw [this ctx]
+    (println (instance? GreenCap this))
+    (let [this (.-this$ this)
+          current-animation (get-in this [:animation-component :current-animation])
+          animation (get-in this [:animation-component :animations current-animation])]
+        (animation/draw-animation this animation ctx))))
 
 (defn create [{:keys [x y rotation]}]
-  {:type :greencap
-   :x x
-   :y y
-   :rotation (or rotation 0)
-   :animation-component {:animations {:run (greencap-animation)
-                                      :idle (greencap-idle)}
-                         :current-animation :idle}
-   :scale 3})
+  (->> {:type :greencap
+        :x x
+        :y y
+        :rotation (or rotation 0)
+        :animation-component {:animations {:run (greencap-animation)
+                                           :idle (greencap-idle)}
+                              :current-animation :idle}
+        :scale 3}
+       (new GreenCap)))
+
 
