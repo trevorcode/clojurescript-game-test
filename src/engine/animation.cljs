@@ -1,5 +1,5 @@
 (ns engine.animation
-  (:require [assets :refer [images]]))
+  (:require [engine.assets :refer [images]]))
 
 (defn increment-frame [{:keys [rows columns frame loop cells] :as animation}]
   (set! animation.frame (if (< (inc frame) (count cells))

@@ -1,5 +1,6 @@
 (ns main
   (:require
+   [engine.assets :as ea]
    [assets :as assets]
    [gamestate :as gs]
    [scene :as scene]
@@ -22,7 +23,8 @@
     context))
 
 (defn load []
-  (assets/load-images))
+  (ea/register-images assets/unloaded-images)
+  (ea/load-images))
 
 (defn draw [{:keys [canvas context currentScene]}]
   (set! (.-fillStyle context) "#f0f0e2")

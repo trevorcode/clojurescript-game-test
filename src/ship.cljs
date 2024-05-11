@@ -1,6 +1,6 @@
 (ns ship
   (:require-macros [macros :refer [def-method]])
-  (:require [assets :as assets]
+  (:require [engine.assets :as assets]
             [engine.animation :refer [draw-image]]
             [gamestate :refer [render-entity update-entity]]))
 
