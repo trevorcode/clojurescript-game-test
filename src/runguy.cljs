@@ -3,6 +3,7 @@
   (:require
    [engine.animation :as animation]
    [engine.input :as input]
+   [engine.assets :as ea]
    [gamestate :refer [render-entity update-entity]]))
 
 (def-method update-entity :runguy
@@ -14,7 +15,8 @@
   (when (input/key-down? (:W input/keys))
     (set! (.-y this) (dec (.-y this))))
   (when (input/key-down? (:S input/keys))
-    (set! (.-y this) (inc (.-y this)))))
+    (set! (.-y this) (inc (.-y this)))
+    (ea/play-audio :fireball)))
 
 (def-method render-entity :runguy
   [this ctx]
@@ -31,7 +33,7 @@
    :frame 0
    :rows 2
    :columns 5
-   :cells [0 2 1 2 3 2 1 ]
+   :cells [0 2 1 2 3 2 1]
    :loop true})
 
 (defn create [{:keys [x y rotation]}]

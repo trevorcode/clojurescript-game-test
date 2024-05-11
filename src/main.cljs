@@ -23,6 +23,11 @@
     context))
 
 (defn load []
+  (ea/register-audio {:fireball {:url "assets/foom_0.wav"
+                                 :type :static}})
+  (ea/load-audios)
+  (ea/play-audio :fireball)
+
   (ea/register-images assets/unloaded-images)
   (ea/load-images))
 
@@ -48,9 +53,9 @@
 (defn init-game []
   (let [canvas (create-canvas! "2" 500 500)
         context (create-context! canvas)]
-    
+
     (input/subscribe-to-keyboard-events gs/game-state)
-    
+
     (set! gs/game-state.canvas canvas)
     (set! gs/game-state.context context)
     (-> (js/document.querySelector "#app")
