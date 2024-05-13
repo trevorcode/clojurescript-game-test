@@ -29,7 +29,8 @@
   (ea/play-audio :fireball)
 
   (ea/register-images assets/unloaded-images)
-  (ea/load-images))
+  (ea/load-images)
+  (println ea/animations))
 
 (defn draw [{:keys [canvas context currentScene]}]
   (set! (.-fillStyle context) "#f0f0e2")

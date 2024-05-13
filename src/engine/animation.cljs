@@ -43,7 +43,7 @@
   (assoc! (-> entity :animation-component) :current-animation animation))
 
 (defn draw-animation
-  [{:keys [x y rotation scale]}
+  [{{:keys [x y rotation scale]} :transform}
    {:keys [sheet] :as animation}
    ctx]
   (let [image (get-in images [sheet :image])]

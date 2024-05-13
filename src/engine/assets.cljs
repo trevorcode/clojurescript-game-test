@@ -1,6 +1,7 @@
 (ns engine.assets)
 
 (def images {})
+(def animations {})
 (def audio {})
 
 (defn register-image [kw image-url]
@@ -8,6 +9,9 @@
 
 (defn register-images [image-map]
   (set! images (merge images image-map)))
+
+(defn register-animations [animation-map]
+  (set! animations (merge animations animation-map)))
 
 (defn register-audio [audio-map]
   (set! audio (merge audio audio-map)))

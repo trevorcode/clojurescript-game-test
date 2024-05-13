@@ -1,21 +1,21 @@
 (ns runguy
   (:require-macros [macros :refer [def-method]])
-  (:require
-   [engine.animation :as animation]
-   [engine.input :as input]
-   [engine.assets :as ea]
-   [gamestate :refer [render-entity update-entity]]))
+  (:require [engine.animation :as animation]
+            [engine.assets :as ea]
+            [engine.input :as input]
+            [gamestate :refer [render-entity update-entity]]
+            [transform :as transform]))
 
 (def-method update-entity :runguy
-  [this _dt]
+  [{:keys [transform]} _dt]
   (when (input/key-down? (:A input/keys))
-    (set! (.-x this) (dec (.-x this))))
+    (set! (.-x transform) (dec (.-x transform))))
   (when (input/key-down? (:D input/keys))
-    (set! (.-x this) (inc (.-x this))))
+    (set! (.-x transform) (inc (.-x transform))))
   (when (input/key-down? (:W input/keys))
-    (set! (.-y this) (dec (.-y this))))
+    (set! (.-y transform) (dec (.-y transform))))
   (when (input/key-down? (:S input/keys))
-    (set! (.-y this) (inc (.-y this)))
+    (set! (.-y transform) (inc (.-y transform)))
     (ea/play-audio :fireball)))
 
 (def-method render-entity :runguy
@@ -37,12 +37,12 @@
    :loop true})
 
 (defn create [{:keys [x y rotation]}]
-  {:type :runguy
-   :x x
-   :y y
-   :rotation (or rotation 0)
-   :animation-component {:animations {:run (runguy-anim)}
-                         :current-animation :run}
-   :scale 0.5})
+  (-> {:type :runguy
+       :animation-component {:animations {:run (runguy-anim)}
+                             :current-animation :run}}
+      (transform/attach-transform {:x x 
+                                   :y y 
+                                   :rotation rotation
+                                   :scale 0.5})))
 
 
