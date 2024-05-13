@@ -1,5 +1,5 @@
 (ns engine.animation
-  (:require [engine.assets :refer [images]]))
+  (:require [engine.assets :refer [images animations]]))
 
 (defn increment-frame [{:keys [rows columns frame loop cells] :as animation}]
   (set! animation.frame (if (< (inc frame) (count cells))
@@ -38,9 +38,7 @@
                    height)))
 
 (defn play-animation [entity animation]
-  (assoc! (get-in entity [:animation-component :animations animation])
-          :frame 0)
-  (assoc! (-> entity :animation-component) :current-animation animation))
+  (assoc! entity :animation (merge {} (get animations animation))))
 
 (defn draw-animation
   [{{:keys [x y rotation scale]} :transform}

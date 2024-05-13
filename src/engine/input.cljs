@@ -22,7 +22,6 @@
   (js/document.addEventListener
    "keydown"
    (fn [e]
-     (println (:keyCode e))
      (when (not (get-in game-state [:keyboard (:keyCode e)]))
        (conj! (:keyboard game-state) (:keyCode e))))))
 

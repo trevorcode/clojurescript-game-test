@@ -11,7 +11,8 @@
   (set! images (merge images image-map)))
 
 (defn register-animations [animation-map]
-  (set! animations (merge animations animation-map)))
+  (set! animations (merge animations animation-map))
+  (println animations))
 
 (defn register-audio [audio-map]
   (set! audio (merge audio audio-map)))

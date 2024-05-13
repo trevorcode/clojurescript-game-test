@@ -9,7 +9,7 @@
 ;;https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
 
 (ea/register-animations
- {:greencap-idle {:sheet :greencap
+ {:greencap-run {:sheet :greencap
                   :height 18
                   :width 16
                   :duration 10
@@ -19,7 +19,7 @@
                   :columns 3
                   :cells [0 1 2 3 4 5 6 7 8 9 10 11]
                   :loop false}
-  :greencap-run {:sheet :greencap
+  :greencap-idle {:sheet :greencap
                  :height 18
                  :width 16
                  :duration 40
@@ -34,9 +34,15 @@
                                       :as this} ctx]
   (animation/draw-animation this animation ctx))
 
-#_(def-method update-entity :greencap
-    [this _dt]
-    (let [vx (aget (.-velocity this) 0)
+(def-method update-entity :greencap
+  [this _dt]
+
+  (when (input/key-down? (:A input/keys))
+    (animation/play-animation this :greencap-run))
+
+  (when (input/key-down? (:D input/keys))
+    (animation/play-animation this :greencap-idle))
+  #_(let [vx (aget (.-velocity this) 0)
           vy (aget (.-velocity this) 1)
           {x :x
            y :y} this]
@@ -65,4 +71,6 @@
       (transform/attach-transform {:x x
                                    :y y
                                    :rotation rotation
-                                   :scale 3})))
+                                   :scale 3})
+      (animation/play-animation :greencap-idle)))
+

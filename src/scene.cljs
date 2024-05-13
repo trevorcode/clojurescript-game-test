@@ -1,6 +1,5 @@
 (ns scene
   (:require [background :as background]
-            [engine.animation :as animation]
             [gamestate :as gs]
             [engine.input :as input]
             [greencap :as greencap]
@@ -20,7 +19,7 @@
 
 (defn scene1 []
   {:objects
-   (into [(background/create {:x 250 :y 250})
+   (into [(background/create)
           (ship/create-ship {:x 50 :y 50 :rotation 10})
           (ship/create-ship {:x 30 :y 80 :rotation 90})
           (runguy/create {:x 180 :y 180})]

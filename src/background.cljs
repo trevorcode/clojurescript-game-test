@@ -1,15 +1,15 @@
 (ns background
   (:require-macros [macros :refer [def-method]])
-  (:require [engine.assets :as assets]
-            [engine.animation :refer [draw-image]]
-            [gamestate :refer [render-entity]]))
+  (:require [engine.animation :refer [draw-image]]
+            [engine.assets :as assets]
+            [gamestate :refer [render-entity]]
+            [transform :as transform]))
 
-(def-method render-entity :bg [this ctx]
-  (draw-image ctx (get-in assets/images [:bg :image]) this))
+(def-method render-entity :bg [{:keys [transform]} ctx]
+  (draw-image ctx (get-in assets/images [:bg :image]) transform))
 
-(defn create [{:keys [x y rotation]}]
-  {:type :bg
-   :x x
-   :y y
-   :rotation (or rotation 0)
-   :scale 0.5})
+(defn create []
+  (-> {:type :bg}
+      (transform/attach-transform {:x 250
+                                   :y 250
+                                   :scale 0.5})))
